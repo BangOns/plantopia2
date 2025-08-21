@@ -14,7 +14,7 @@ export default function About() {
     <>
       <article
         ref={elementRef}
-        className="w-screen h-[400vh]  overflow-x-hidden relative"
+        className="w-screen h-[300vh]  overflow-x-hidden relative"
       >
         {/* <Parallax_Layout elementRef={elementRef} /> */}
         <Text1 />
