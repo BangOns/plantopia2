@@ -1,10 +1,24 @@
 "use client";
 import Image from "next/image";
 import { ImageImport } from "../../../utils/ImageImport";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 export default function Explore() {
+  const targetRef = useRef(null);
+
+  // scroll progress section Explore
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start end", "end start"], // 0 saat section belum masuk, 1 saat sudah keluar
+  });
+
+  // animasi: dari atas (-200px) ke posisi normal (0)
+  const heading1 = useTransform(scrollYProgress, [0, 0.5], [-200, 0]);
+  const heading2 = useTransform(scrollYProgress, [0, 0.5], [200, 0]);
+  const img1 = useTransform(scrollYProgress, [0, 0.5], [200, 0]);
+  const img2 = useTransform(scrollYProgress, [0, 0.5], [-200, 0]);
   return (
-    <div className="my-10" id="features">
+    <div className="my-10" id="features" ref={targetRef}>
       <div className="text-center px-[25px] w-[716px] max-[430px]:w-auto m-auto">
         <p className="font-[700] text-[36px] text-[#030712] font-nunito-bold">
           Explore the{" "}
@@ -21,17 +35,26 @@ export default function Explore() {
       <div className="lg:flex items-center justify-center m-auto xl:w-[1120px] ">
         <div className="">
           <div className="m-5 p-5 rounded-lg flex lg:w-[400px] xl:w-[550px] max-[430px]:h-auto h-[265px] bg-[#F9FAFB] hover:bg-[#ECFDF5] overflow-hidden">
-            <div className="max-[430px]:z-10 relative w-[303px] font-nunito-bold flex flex-row justify-start items-center">
+            <motion.div
+              style={{ y: heading1 }}
+              className="max-[430px]:z-10 relative w-[303px] font-nunito-bold flex flex-row justify-start items-center"
+            >
               <div>
-                <p className="font-nunito-bold text-2xl text-black">Planting Instruction</p>
-                <p className="font-nunito-semibold text-base text-gray-600 ">
+                <p className="font-nunito-bold text-2xl text-black">
+                  Planting Instruction
+                </p>
+                <p className="font-nunito-semibold text-base text-gray-600">
                   You can learn step-by-step planting tailored to the specific
                   plants you want to grow. This ensures each plant thrives and
                   flourishes beautifully.
                 </p>
               </div>
-            </div>
-            <div className="max-[430px]:z-0 mt-auto hover:overflow-visible h-[180px] relative ml-auto">
+            </motion.div>
+
+            <motion.div
+              style={{ y: img1 }}
+              className="max-[430px]:z-0 mt-auto hover:overflow-visible h-[180px] relative ml-auto"
+            >
               <motion.div
                 className="max-[430px]:top-[70px] relative transition duration-500 transform hover:scale-125"
                 whileHover={{ y: -25 }}
@@ -46,19 +69,27 @@ export default function Explore() {
                   className="relative"
                 />
               </motion.div>
-            </div>
+            </motion.div>
           </div>
           <div className="m-5 p-5 rounded-lg flex lg:w-[400px] xl:w-[550px] max-[430px]:h-auto  h-[265px] bg-[#F9FAFB] hover:bg-[#ECFDF5] overflow-hidden">
-            <div className="relative w-[303px] font-nunito-bold flex flex-row justify-start items-center">
+            <motion.div
+              style={{ x: heading1 }}
+              className="relative w-[303px] font-nunito-bold flex flex-row justify-start items-center"
+            >
               <div>
-                <p className="font-nunito-bold text-2xl text-black">Organize Your Plants</p>
+                <p className="font-nunito-bold text-2xl text-black">
+                  Organize Your Plants
+                </p>
                 <p className="font-nunito-semibold text-sm text-gray-600">
                   You can organize the plants you own and have added to the app.
                   This way, you'll find it easier to care for your plants.
                 </p>
               </div>
-            </div>
-            <div className="hover:overflow-visible h-[180px] relative ml-auto">
+            </motion.div>
+            <motion.div
+              style={{ y: img2 }}
+              className="hover:overflow-visible h-[180px] relative ml-auto"
+            >
               <motion.div
                 className=" relative transition duration-500 transform hover:scale-125"
                 whileHover={{ y: -20 }}
@@ -73,22 +104,30 @@ export default function Explore() {
                   className=" z-10 relative  mb-[300px]"
                 />
               </motion.div>
-            </div>
+            </motion.div>
           </div>
         </div>
         <div className="">
           <div className="m-5 p-5 rounded-lg flex lg:w-[400px] xl:w-[550px] max-[430px]:h-auto h-[265px] bg-[#F9FAFB] hover:bg-[#ECFDF5] overflow-hidden">
-            <div className=" max-[430px]:z-10 relative w-[303px] font-nunito-bold flex flex-row justify-start items-center">
+            <motion.div
+              style={{ y: heading2 }}
+              className=" max-[430px]:z-10 relative w-[303px] font-nunito-bold flex flex-row justify-start items-center"
+            >
               <div>
-                <p className="font-nunito-bold text-black text-2xl">Watering Reminder</p>
+                <p className="font-nunito-bold text-black text-2xl">
+                  Watering Reminder
+                </p>
                 <p className="font-nunito-semibold text-sm text-gray-600">
                   You will receive notifications to remind you to water your
                   plants. Additionally, you can manually adjust and customize
                   these watering notifications to suit your schedule.
                 </p>
               </div>
-            </div>
-            <div className="max-[430px]:z-0 hover:overflow-visible h-[180px] relative ml-auto">
+            </motion.div>
+            <motion.div
+              style={{ y: img2 }}
+              className="max-[430px]:z-0 hover:overflow-visible h-[180px] relative ml-auto"
+            >
               <motion.div
                 className="relative transition duration-500 transform hover:scale-125"
                 whileHover={{ y: -20 }}
@@ -103,21 +142,29 @@ export default function Explore() {
                   className="relative mb-[300px]"
                 />
               </motion.div>
-            </div>
+            </motion.div>
           </div>
           <div className="m-5 p-5 rounded-lg flex lg:w-[400px] xl:w-[550px] max-[430px]:h-auto  h-[265px] bg-[#F9FAFB] hover:bg-[#ECFDF5] overflow-hidden">
-            <div className="max-[430px]:z-10 relative w-[303px] font-nunito-bold flex flex-row justify-start items-center">
+            <motion.div
+              style={{ x: heading1 }}
+              className="max-[430px]:z-10 relative w-[303px] font-nunito-bold flex flex-row justify-start items-center"
+            >
               <div>
-                <p className="font-nunito-bold text-black text-2xl">Planting Instruction</p>
+                <p className="font-nunito-bold text-black text-2xl">
+                  Planting Instruction
+                </p>
                 <p className="font-nunito-semibold text-sm text-gray-600">
                   You can learn step-by-step planting tailored to the specific
                   plants you want to grow. This ensures each plant thrives and
                   flourishes beautifully.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="mt-auto hover:overflow-visible h-[180px] relative ml-auto">
+            <motion.div
+              style={{ y: img1 }}
+              className="mt-auto hover:overflow-visible h-[180px] relative ml-auto"
+            >
               <motion.div
                 className="max-[430px]:top-[70px] relative transition duration-500 transform hover:scale-125"
                 animate={{ y: 10 }}
@@ -132,7 +179,7 @@ export default function Explore() {
                   className="relative"
                 />
               </motion.div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

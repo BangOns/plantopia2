@@ -2,20 +2,32 @@ import React from "react";
 import Image from "next/image";
 import { ImageImport } from "@/utils/ImageImport";
 import { IconsImport } from "@/utils/IconsImport";
+import { useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Hero({ getRef }) {
+  const { scrollY } = useScroll();
+  const p1 = useTransform(scrollY, [0, 400], [0, 200]);
+  const p2 = useTransform(scrollY, [0, 100], [0, -30]);
   return (
     <div
       className={`flex flex-col-reverse h-screen lg:flex-row justify-between items-center lg:pl-[72px] mb-6 max-lg:mt-24 max-lg:justify-end gap-5`}
       id="home"
     >
       <div className="w-full px-[25px] lg:px-0 lg:w-[630px] xl:w-[710px] flex flex-col gap-4 mb-8 lg:mb-0 text-start xl:text-start">
-        <p className="text-black font-nunito-bold text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-[35px] md:leading-[35px] lg:leading-[45px] xl:leading-[65px]">
+        <motion.p
+          style={{ y: p1 }}
+          transition={{ duration: 1 }}
+          className="text-black font-nunito-bold text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-[35px] md:leading-[35px] lg:leading-[45px] xl:leading-[65px]"
+        >
           Spread Kindness,
           <br />
           Green the Earth Together
-        </p>
-        <p className="font-nunito text-sm md:text-base leading-[18px] md:leading-[21.82px] text-gray-400">
+        </motion.p>
+        <motion.p
+          style={{ y: p1 }}
+          className="font-nunito text-sm md:text-base leading-[18px] md:leading-[21.82px] text-gray-400"
+        >
           Find simple ways to plant for a greener Earth.
           <br />
           Join{" "}
@@ -23,8 +35,11 @@ export default function Hero({ getRef }) {
             Plantopia
           </span>{" "}
           now and green the planet together!
-        </p>
-        <div className="flex sm:flex-row gap-4 justify-start xl:justify-start">
+        </motion.p>
+        <motion.div
+          style={{ y: p1 }}
+          className="flex sm:flex-row gap-4 justify-start xl:justify-start"
+        >
           <Image
             src={IconsImport.IconsGooglePlay}
             alt="Google Play Icon"
@@ -33,7 +48,7 @@ export default function Hero({ getRef }) {
           <button className="lg:p-3 xl:p-[14px] font-nunito-bold text-sm md:text-base leading-6 text-emerald-500">
             Learn More
           </button>
-        </div>
+        </motion.div>
       </div>
       <div
         className="w-full lg:w-[670px] xl:w-[652px] h-[300px] sm:h-[400px] md:h-[430px] lg:h-[550px] xl:h-[662px] bg-emerald-50 

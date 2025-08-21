@@ -16,7 +16,7 @@ export default function About() {
         ref={elementRef}
         className="w-screen h-[400vh]  overflow-x-hidden relative"
       >
-        <Parallax_Layout elementRef={elementRef} />
+        {/* <Parallax_Layout elementRef={elementRef} /> */}
         <Text1 />
         <Text2 />
         <Text3 />
